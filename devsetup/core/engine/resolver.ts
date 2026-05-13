@@ -4,7 +4,21 @@ export function resolveEnvironment(
     env: Environment,
     tools: Tool[]
 ): Tool[] {
-    return env.tools
-        .map(id => tools.find(t => t.id === id))
-        .filter(Boolean) as Tool[]
+    const resolved = new Map<string, Tool>();
+
+    function resolvedTool(toolId: string) {
+        const tool = tools.find(t => t.id === toolId);
+
+        if (!tool) return;
+
+        resolved.set(tool.id, tool);
+
+        tool.dependencies?.forEach(dep => {
+            resolvedTool(dep);
+        });
+    }
+
+    env.tools.forEach(resolvedTool);
+
+    return Array.from(resolved.values());
 }

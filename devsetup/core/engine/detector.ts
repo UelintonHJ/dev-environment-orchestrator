@@ -3,7 +3,7 @@ import type { Tool } from "../models/environment"
 
 export function detectTool(tool: Tool): boolean {
     try {
-        execSync(tool.checkCommand, { stdio: "ignore "})
+        execSync(tool.checkCommand, { stdio: "ignore" })
         return true
     } catch {
         return false

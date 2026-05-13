@@ -1,9 +1,9 @@
 export type Tool = {
-    id: string
+    id: "pnpm",
     name: string
     checkCommand: string
     installCommand?: string
-    dependencies?: string[]
+    dependencies: ["node"]
 }
 
 export type Environment = {

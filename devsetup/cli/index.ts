@@ -1,28 +1,30 @@
-const [,, command, target] = process.argv;
+#!/usr/bin/env node
 
-function createFrontend() {
-    console.log("🚀 DevSetup: criando ambiente frontend...");
-    console.log(`📦 Target: ${target}`);
-}
+import { createEnviroment } from "./commands/create";
 
-function help() {
-    console.log(`
-DevSetup CLI
+const args = process.argv.slice(2);
 
-Comandos:
-    create frontend  -> cria ambiente frontend
-`);
-}
+const command = args[0];
+const param = args[1];
 
 switch (command) {
     case "create":
-        if (target === "frontend") {
-            createFrontend();
-        } else {
-            console.log("❌ Target não suportado:", target);
+        if (!param) {
+            console.log("❌ Missing environment name")
+            process.exit(1);
         }
+
+        createEnviroment(param);
         break;
 
     default:
-        help();
+        console.log(`
+DevSetup CLI
+    
+Commands:
+    create <environment>    Create a development environment
+        
+Examples:
+    devsetup create frontend
+`);
 }
