@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-import { createEnviroment } from "./commands/create";
+import { createEnvironment } from "./commands/create";
+import { doctorEnvironment } from "./commands/doctor";
 
 const args = process.argv.slice(2);
 
@@ -14,7 +15,11 @@ switch (command) {
             process.exit(1);
         }
 
-        createEnviroment(param);
+        createEnvironment(param);
+        break;
+
+    case "doctor":
+        doctorEnvironment();
         break;
 
     default:
